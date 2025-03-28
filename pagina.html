@@ -4,9 +4,22 @@
         <meta charset="UTF-8"/>
         <title> Mi primera página Web</title>
         <script>
-            a=1;
-            b=2;
-            alert("Esta es una aletar que suma: "+(a+b));
+            let acceso=true
+            while(acceso){
+                let contraseña="admin123";
+                let user=prompt("Digite su nombre de usuario: ");
+                let contraseña_user=prompt("Digite la contraseña: ");
+                if (contraseña==contraseña_user){
+                    alert("Bienvenido, "+user);
+                    acceso=false;
+                }
+                else{
+                    alert("Contraseña incorrecta")
+                    acceso=true;
+                }
+            }
+           
+
         </script>
     </head>
     <body>
