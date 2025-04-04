@@ -5,7 +5,7 @@ let vidas_pc=3
 let vidas_jugador=3
 
 function aleatorio(min,max){
-    return Math.floor(Math.random()*(max-min+1)+1);
+    return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 function mostrarMensaje(mensaje) {
@@ -19,6 +19,7 @@ function deshabilitarBotones(id1,id2=null,id3=null){
         document.getElementById(id1).disabled=true
         document.getElementById(id2).disabled=true
         document.getElementById(id3).disabled=true
+        
     }
 }
 
@@ -143,3 +144,4 @@ function reiniciarJuego(){
 
 
 window.addEventListener('load', iniciarJuego);
+
