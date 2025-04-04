@@ -4,37 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemon</title>
+    <script src="./js/pokemon.js"></script>
 </head>
 <body>
-    <h1>BATALLA DE POKEMONES 🔥🌱🌊</h1>
+    <h1>BATALLA DE POKEMONES 🔥⚡🌊</h1>
 
-    <section id="seleccionar_mascota">
+    <section id="seleccionar-mascota">
         <h2>Elige tu pokémon:</h2>
+        
+        <input type="radio" name="pokemon" id="Charmander">
+        <label for="Charmander" >Charmander</label>
+        
+        <input type="radio" name="pokemon" id="Pikachu"/>
+        <label for="Pikachu">Pikachu</label>
+        
+        <input type="radio" name="pokemon" id="Squirtle"/>
+        <label for="Squirtle">Squirtle</label>
 
-        aqui iran las mascotas
-        <button>Seleccionar</button>
+        <button id="boton-seleccionar-pokemon">Seleccionar</button>
 
     </section>
 
-    <section id ="seleccionar_ataque">
-        <h2>Elige tu ataque:</h2>
-        <p>Tu pokémon tiene <span>3</span> vidas</p>
-        <p>El pokémon contrincante tiene <span>3</span> vidas</p>
+    <section id ="mensajes-de-seleccion">
+    
+        <p id="mensaje-seleccion-pokemon" style="display: none;">Tu pokémon <strong><span id="nombre-pokemon-jugador"></span></strong> tiene <span id ="vidas-jugador">3</span> vidas</p>
+        <p id="mensaje-seleccion-enemigo" style="display: none;">Tu enemigo <strong><span id="nombre-pokemon-enemigo"></span></strong> tiene <span id="vidas-enemigo">3</span> vidas</p>
+    </section>   
+    <section id="Ataques-pokemones" style="display: none;">
         <p>
-            <button>Fuego 🔥</button>
-            <button>Tierra 🌱</button>
-            <button>Fuego 🌊</button>
+            <h2>Elige tu ataque:</h2>
+            <button id="boton-fuego">Fuego 🔥</button>
+            <button id="boton-trueno">Trueno ⚡</button>
+            <button id="boton-agua">Agua 🌊</button>
         </p>
     </section>
-    <section id= "Mensajes_combate">
-        <p>Tu pokémon ataco con fuego, el pokémon enemigo atacó con Tierra. GANASTE🎉</p>
+   
+    <section id= "mensajes-combate">
+        <p id="mensaje-resultado-combate" style="display: none;">Tu <span id="pokemon-jugador"></span> ataco con <span id="ataque-user"></span>, pero el <span id="pokemon-enemigo"></span> enemigo contraatacó con <span id="ataque-pc"></span>. <span id="resultado-lucha"></span></p>
     </section>
 
-    <section id="reinicio_juego">
+    <section id="reinicio-juego" style="display:none;">
         <p>
-            <button>Jugar otra vez</button>
+            <button id="boton-reiniciar-juego">Jugar otra vez</button>
         </p>
     </section>
+
 
     
 
