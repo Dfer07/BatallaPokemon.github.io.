@@ -4,6 +4,13 @@ let ataqueAleatorioPC
 let vidas_pc=3
 let vidas_jugador=3
 let vidas_logo=""
+
+ //Objeto creado para que la ruta de las imagenes cambiara dependiendo de la seleccion del pokemon en el area de pelea(segunda fase)
+const imagenesPokemon={
+    Charmander:"./../imagenes/charmanderataqueNew.png",
+    Squirtle:"./../imagenes/squirtleataqueNew.png",
+    Pikachu:"./../imagenes/pikachuataqueNew.png"
+}
 function aleatorio(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
 }
@@ -37,9 +44,8 @@ function selecionarPokemon(){
     }else{
         return alert("Selecciona una mascota");
     }
+    document.getElementById('pokemon-imagen-ataque').src=imagenesPokemon[pokemon]
     document.getElementById('nombre-pokemon-jugador').innerHTML=pokemon
-    document.getElementById('pokemon-jugador').innerHTML=pokemon
-
     seleccionarPokemonEnemigo()
 }
 
@@ -53,15 +59,14 @@ function seleccionarPokemonEnemigo(){
     }else{
         pokemonEnemigo="Squirtle"
     }
+    document.getElementById('pokemon-enemigo-imagen-ataque').src=imagenesPokemon[pokemonEnemigo]
     document.getElementById('nombre-pokemon-enemigo').innerHTML=pokemonEnemigo
-    document.getElementById('pokemon-enemigo').innerHTML=pokemonEnemigo
     document.getElementById('seleccionar-pokemon').style.display="none"
-    mostrarMensaje('mensajes-de-seleccion')
-    mostrarMensaje('ataques-pokemones')
+    mostrarMensaje('segunda-fase')
 }
 
 function ataqueFuego(){
-    document.getElementById('ataque-user').innerHTML="fuego"
+    document.getElementById('ataque-user').innerHTML="Fuego 🔥"
     ataqueJugador=1
     ataqueAleatorioPC=aleatorio(1,3)
     ataqueAleatorioEnemigo(ataqueAleatorioPC)
@@ -69,7 +74,7 @@ function ataqueFuego(){
     combate(ataqueJugador,ataqueAleatorioPC)
 }
 function ataqueTrueno(){
-    document.getElementById('ataque-user').innerHTML="trueno"
+    document.getElementById('ataque-user').innerHTML="Trueno ⚡"
     ataqueJugador=2
     ataqueAleatorioPC=aleatorio(1,3)
     ataqueAleatorioEnemigo(ataqueAleatorioPC)
@@ -78,7 +83,7 @@ function ataqueTrueno(){
 }
 
 function ataqueAgua(){
-    document.getElementById('ataque-user').innerHTML="agua"
+    document.getElementById('ataque-user').innerHTML="Agua 🌊"
     ataqueJugador=3
     ataqueAleatorioPC=aleatorio(1,3)
     ataqueAleatorioEnemigo(ataqueAleatorioPC)
@@ -88,11 +93,11 @@ function ataqueAgua(){
 
 function ataqueAleatorioEnemigo(ataqueAleatorio){
     if(ataqueAleatorio==1){
-        document.getElementById('ataque-pc').innerHTML="fuego"
+        document.getElementById('ataque-pc').innerHTML="Fuego 🔥"
     }else if(ataqueAleatorio==2){
-        document.getElementById('ataque-pc').innerHTML="trueno"
+        document.getElementById('ataque-pc').innerHTML="Trueno ⚡"
     }else{
-        document.getElementById('ataque-pc').innerHTML="agua"
+        document.getElementById('ataque-pc').innerHTML="Agua 🌊"
     }
 }
 function vidasCorazon(value){
@@ -128,23 +133,25 @@ function combate(usuario,maquina){
 
 function revisarVidas(jugador,pc){
     if(jugador==0){
-        document.getElementById('mensaje-resultado-combate').style.display="none"
         let mensajePerder=document.createElement('h2')
         mensajePerder.classList.add('subtitulo')
-        mensajePerder.innerHTML="¡Lo siento, perdiste! 😔"
-        document.getElementById('mensajes-combate').appendChild(mensajePerder)
+        mensajePerder.innerHTML="¡Perdiste la batalla! 😔"
+        document.getElementById('mensaje-ganador').appendChild(mensajePerder)
+        document.getElementById('mensajes-combate').style.display="none"
         deshabilitarBotones('boton-fuego','boton-trueno','boton-agua')
-        document.getElementById('reinicio-juego').style.display="block"
+        document.getElementById('ataques-pokemones').style.display="none"
+        document.getElementById('reinicio-juego').style.display="flex"
     }else if(pc==0){
-        document.getElementById('mensaje-resultado-combate').style.display="none"
         let mensajeGanar=document.createElement('h2')
         mensajeGanar.classList.add('subtitulo')
-        mensajeGanar.innerHTML="¡Ganaste el combate! 😃"
-        document.getElementById('mensajes-combate').appendChild(mensajeGanar)
+        mensajeGanar.innerHTML="¡Ganaste la batalla! 😃"
+        document.getElementById('mensaje-ganador').appendChild(mensajeGanar)
+        document.getElementById('mensajes-combate').style.display="none"
         deshabilitarBotones('boton-fuego','boton-trueno','boton-agua')
-        document.getElementById('reinicio-juego').style.display="block"
+        document.getElementById('ataques-pokemones').style.display="none"
+        document.getElementById('reinicio-juego').style.display="flex"
     }
-    
+
 }
 
 function reiniciarJuego(){
