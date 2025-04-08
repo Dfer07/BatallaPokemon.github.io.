@@ -3,24 +3,19 @@ let ataqueJugador
 let ataqueAleatorioPC
 let vidas_pc=3
 let vidas_jugador=3
-
+let vidas_logo=""
 function aleatorio(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 function mostrarMensaje(mensaje) {
-    document.getElementById(mensaje).style.display = "block";
+    document.getElementById(mensaje).style.display = "flex";
 }
 
-function deshabilitarBotones(id1,id2=null,id3=null){
-    if(id1!=null && id2==null && id3==null){
-        document.getElementById(id1).disabled=true
-    }else{
-        document.getElementById(id1).disabled=true
-        document.getElementById(id2).disabled=true
-        document.getElementById(id3).disabled=true
-        
-    }
+function deshabilitarBotones(id1,id2,id3){
+    document.getElementById(id1).disabled=true
+    document.getElementById(id2).disabled=true
+    document.getElementById(id3).disabled=true
 }
 
 function iniciarJuego(){
@@ -44,8 +39,7 @@ function selecionarPokemon(){
     }
     document.getElementById('nombre-pokemon-jugador').innerHTML=pokemon
     document.getElementById('pokemon-jugador').innerHTML=pokemon
-    deshabilitarBotones('boton-seleccionar-pokemon')
-    mostrarMensaje('mensaje-seleccion-pokemon')
+
     seleccionarPokemonEnemigo()
 }
 
@@ -61,9 +55,9 @@ function seleccionarPokemonEnemigo(){
     }
     document.getElementById('nombre-pokemon-enemigo').innerHTML=pokemonEnemigo
     document.getElementById('pokemon-enemigo').innerHTML=pokemonEnemigo
-    mostrarMensaje('mensaje-seleccion-enemigo')
-    document.getElementById('Ataques-pokemones').style.display="block"
-    document.getElementById('seleccionar-mascota').style.display="none"
+    document.getElementById('seleccionar-pokemon').style.display="none"
+    mostrarMensaje('mensajes-de-seleccion')
+    mostrarMensaje('ataques-pokemones')
 }
 
 function ataqueFuego(){
@@ -71,7 +65,7 @@ function ataqueFuego(){
     ataqueJugador=1
     ataqueAleatorioPC=aleatorio(1,3)
     ataqueAleatorioEnemigo(ataqueAleatorioPC)
-    mostrarMensaje('mensaje-resultado-combate')
+    mostrarMensaje('mensajes-combate')
     combate(ataqueJugador,ataqueAleatorioPC)
 }
 function ataqueTrueno(){
@@ -79,7 +73,7 @@ function ataqueTrueno(){
     ataqueJugador=2
     ataqueAleatorioPC=aleatorio(1,3)
     ataqueAleatorioEnemigo(ataqueAleatorioPC)
-    mostrarMensaje('mensaje-resultado-combate')
+    mostrarMensaje('mensajes-combate')
     combate(ataqueJugador,ataqueAleatorioPC)
 }
 
@@ -88,7 +82,7 @@ function ataqueAgua(){
     ataqueJugador=3
     ataqueAleatorioPC=aleatorio(1,3)
     ataqueAleatorioEnemigo(ataqueAleatorioPC)
-    mostrarMensaje('mensaje-resultado-combate')
+    mostrarMensaje('mensajes-combate')
     combate(ataqueJugador,ataqueAleatorioPC)
 }
 
@@ -101,6 +95,17 @@ function ataqueAleatorioEnemigo(ataqueAleatorio){
         document.getElementById('ataque-pc').innerHTML="agua"
     }
 }
+function vidasCorazon(value){
+    
+    if(value==1){
+        vidas_logo="❤️";
+    }else if(value==2){
+        vidas_logo="❤️❤️";
+    }else{
+        vidas_logo=0;
+    }
+    return vidas_logo
+}
 
 function combate(usuario,maquina){
     if(usuario==maquina){
@@ -109,12 +114,14 @@ function combate(usuario,maquina){
     else if(usuario==1 && maquina==2 || usuario==2 && maquina==3 ||usuario==3 && maquina==1){
         document.getElementById('resultado-lucha').innerHTML="¡Ganaste el combate!"
         vidas_pc-=1
-        document.getElementById('vidas-enemigo').innerHTML=vidas_pc
+        vidasCorazon(vidas_pc)
+        document.getElementById('vidas-enemigo').innerHTML=vidas_logo
     }
     else{
         document.getElementById('resultado-lucha').innerHTML="¡Perdiste el combate!"
         vidas_jugador-=1
-        document.getElementById('vidas-jugador').innerHTML=vidas_jugador
+        vidasCorazon(vidas_jugador)
+        document.getElementById('vidas-jugador').innerHTML=vidas_logo
     }
     revisarVidas(vidas_jugador,vidas_pc)
 }
@@ -122,15 +129,17 @@ function combate(usuario,maquina){
 function revisarVidas(jugador,pc){
     if(jugador==0){
         document.getElementById('mensaje-resultado-combate').style.display="none"
-        let mensajePerder=document.createElement('p')
-        mensajePerder.innerHTML="Lo siento, perdiste 😔"
+        let mensajePerder=document.createElement('h2')
+        mensajePerder.classList.add('subtitulo')
+        mensajePerder.innerHTML="¡Lo siento, perdiste! 😔"
         document.getElementById('mensajes-combate').appendChild(mensajePerder)
         deshabilitarBotones('boton-fuego','boton-trueno','boton-agua')
         document.getElementById('reinicio-juego').style.display="block"
     }else if(pc==0){
         document.getElementById('mensaje-resultado-combate').style.display="none"
-        let mensajeGanar=document.createElement('p')
-        mensajeGanar.innerHTML="Ganaste el combate 😃"
+        let mensajeGanar=document.createElement('h2')
+        mensajeGanar.classList.add('subtitulo')
+        mensajeGanar.innerHTML="¡Ganaste el combate! 😃"
         document.getElementById('mensajes-combate').appendChild(mensajeGanar)
         deshabilitarBotones('boton-fuego','boton-trueno','boton-agua')
         document.getElementById('reinicio-juego').style.display="block"

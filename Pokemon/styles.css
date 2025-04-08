@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+
+
+body{
+  font-family: "Mochiy Pop P One", sans-serif;
+  background-color: blue;
+}
+
+.titulo{
+    padding: 5px;
+    width: 600px;
+    height: 80px;
+    display: flex;
+    justify-content:space-around;
+    justify-self: center;
+}
+#seleccionar-pokemon{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    gap: 10px; /* Separacion entre elementos, se parece a un margin */
+}
+.subtitulo{
+    color: white;
+    font-size: 28px; /* El tamaño de la letra */
+}
+
+.tarjetas{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.tarjeta-seleccion-pokemon{
+    width: 150px; /* Ancho */
+    height: 180px; /* Alto */
+    box-sizing: border-box; /* Es para que nuestra caja se autoajuste a en este caso 150*180 px con interior, pading, border y margin */
+    padding: 5px;/* Es básicamente la margen del interior, empieza desde el final del interior. */
+    border: 1px solid black; /* Es la linea que demarca cada elemento o que separa o permite identificar cada cuadro */
+    background-color: #3366CC; /* Es el fondo del elemento para cambiarle el color */
+    display: flex; /* Indicarle que este contenedor tendra hijos para acomodarlos como yo quiera (columnar u horizontal) */
+    flex-direction: column;/* Como ya seleccione que mi display es flex, ahora yo le puse que acomode mis hijos de forma columnar */
+    justify-content: center;/*Alinear mis hijos en el centro de izquierda a derecha, en este caso*/
+    align-items:center; /* Alinear mis hijos en el centro de arriba a abajo, en este caso*/
+    border-radius: 15px; /* Ponerle un borde redondo a un cuadro mio */
+}
+.tarjeta-seleccion-pokemon img{
+    width: 116px;
+}
+.tarjeta-seleccion-pokemon p{
+    color: #FFCC00; /* Cambio de color de la letra de todas las etiquetas <p> que esta dentro de la clase terjeta-seleccion-pokemon*/
+    margin: 10px; /* Separación entre elementos es la distancia que va separar un cuadro de otro */
+
+}
+#boton-seleccionar-pokemon{
+    font-family: "Mochiy Pop P One", sans-serif;
+    width: 120px;
+    height: 30px;
+    background-color:#FFCC00;
+    border: 1px solid black;
+    border-radius: 15px; 
+    margin: 10px;
+    color: blue;
+}
+
+input{
+    display: none;
+}
+#segunda-fase{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+#mensajes-de-seleccion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#ataques-pokemones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#botones-de-ataques{
+    display: flex;
+    flex-direction: row;
+}
+.boton-de-ataque{
+
+    font-family: "Mochiy Pop P One", sans-serif;
+    width: 120px;
+    height: 30px;
+    background-color:#FFCC00;
+    border: 1px solid black;
+    border-radius: 15px; 
+    margin: 10px;
+    color: blue;
+}
+.boton-de-ataque:disabled {
+    background-color: gray;
+    color: white;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+#boton-reiniciar-juego{
+    font-family: "Mochiy Pop P One", sans-serif;
+    width: 150px;
+    height: 30px;
+    background-color:#FFCC00;
+    border: 1px solid black;
+    border-radius: 15px; 
+    margin: 10px;
+    color: blue;
+}

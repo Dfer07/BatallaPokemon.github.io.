@@ -8,46 +8,66 @@
     <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
-    <h1>BATALLA DE POKEMONES 🔥⚡🌊</h1>
+    <section id="Titulo-juego">
+        <h1 class="titulo">
+            <img src="./../imagenes/pokeball.png" alt="Pokébola" width="80" style="vertical-align: middle;"/>
+            <img src="./../imagenes/titulo_pokemon.png" alt="fuente-pokemon" width="450">
+            <img src="./../imagenes/pokeball.png" alt="Pokébola" width="80" style="vertical-align: middle;"/>
+        </h1>
+    </section>
+   
+    <section id="seleccionar-pokemon">
+        <h2 class="subtitulo">Elige tu pokémon:</h2>
 
-    <section id="seleccionar-mascota">
-        <h2>Elige tu pokémon:</h2>
+        <div class="tarjetas">
+
+            <input type="radio" name="pokemon" id="Charmander">
+            <label for="Charmander" class="tarjeta-seleccion-pokemon">
+                <p>Charmander</p>
+                <img src="./../imagenes/charmander.png" alt="Charmander"/>
+            </label>
+            
+            <input type="radio" name="pokemon" id="Pikachu"/>
+            <label for="Pikachu" class="tarjeta-seleccion-pokemon">
+                <p>Pikachu</p>
+                <img src="./../imagenes/pikachu.png" alt="Pikachu"/>
+            </label>
+            
+            <input type="radio" name="pokemon" id="Squirtle"/>
+            <label for="Squirtle" class="tarjeta-seleccion-pokemon">
+                <p>Squirtle</p>
+                <img src="./../imagenes/squirtle.png" alt="Squirtle"/>
+            </label>
         
-        <input type="radio" name="pokemon" id="Charmander">
-        <label for="Charmander" >Charmander</label>
-        
-        <input type="radio" name="pokemon" id="Pikachu"/>
-        <label for="Pikachu">Pikachu</label>
-        
-        <input type="radio" name="pokemon" id="Squirtle"/>
-        <label for="Squirtle">Squirtle</label>
+        </div>
 
         <button id="boton-seleccionar-pokemon">Seleccionar</button>
 
     </section>
+    <section id="segunda-fase">
+        <div id ="mensajes-de-seleccion"style="display: none;">
+            <p id="mensaje-seleccion-pokemon">Tu pokémon <strong><span id="nombre-pokemon-jugador"></span></strong> tiene <span id ="vidas-jugador">❤️❤️❤️</span> vidas</p>
+            <p id="mensaje-seleccion-enemigo" >Tu enemigo <strong><span id="nombre-pokemon-enemigo"></span></strong> tiene <span id="vidas-enemigo">❤️❤️❤️</span> vidas</p>
+        </div>   
 
-    <section id ="mensajes-de-seleccion">
+        <div id="ataques-pokemones" style="display: none;">
+            <h2 class="subtitulo">Elige tu ataque:</h2>
+            <div id="botones-de-ataques">
+                <button id="boton-fuego" class="boton-de-ataque">Fuego 🔥</button>
+                <button id="boton-trueno" class="boton-de-ataque">Trueno ⚡</button>
+                <button id="boton-agua" class="boton-de-ataque">Agua 🌊</button>
+            </div>
+
+        </div>
+
+        <div id= "mensajes-combate" style="display: none;">
+            <p id="mensaje-resultado-combate">Tu <span id="pokemon-jugador"></span> ataco con <span id="ataque-user"></span>, pero el <span id="pokemon-enemigo"></span> enemigo contraatacó con <span id="ataque-pc"></span>. <span id="resultado-lucha"></span>
+            </p>
+        </div>
     
-        <p id="mensaje-seleccion-pokemon" style="display: none;">Tu pokémon <strong><span id="nombre-pokemon-jugador"></span></strong> tiene <span id ="vidas-jugador">3</span> vidas</p>
-        <p id="mensaje-seleccion-enemigo" style="display: none;">Tu enemigo <strong><span id="nombre-pokemon-enemigo"></span></strong> tiene <span id="vidas-enemigo">3</span> vidas</p>
-    </section>   
-    <section id="Ataques-pokemones" style="display: none;">
-        <p>
-            <h2>Elige tu ataque:</h2>
-            <button id="boton-fuego">Fuego 🔥</button>
-            <button id="boton-trueno">Trueno ⚡</button>
-            <button id="boton-agua">Agua 🌊</button>
-        </p>
-    </section>
-   
-    <section id= "mensajes-combate">
-        <p id="mensaje-resultado-combate" style="display: none;">Tu <span id="pokemon-jugador"></span> ataco con <span id="ataque-user"></span>, pero el <span id="pokemon-enemigo"></span> enemigo contraatacó con <span id="ataque-pc"></span>. <span id="resultado-lucha"></span></p>
-    </section>
-
-    <section id="reinicio-juego" style="display:none;">
-        <p>
+        <div id="reinicio-juego" style="display:none;">
             <button id="boton-reiniciar-juego">Jugar otra vez</button>
-        </p>
+        </div>
     </section>
 </body>
 </html>
