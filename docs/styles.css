@@ -4,6 +4,9 @@
 body{
   font-family: "Mochiy Pop P One", sans-serif;
   background-color: blue;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .titulo{
@@ -191,5 +194,12 @@ input{
         justify-content:center;
         align-items: center;
         gap: 1px; /* Separacion entre elementos, se parece a un margin */
+    }
+    #segunda-fase{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
     }
 }
