@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+
+
+body{
+  font-family: "Mochiy Pop P One", sans-serif;
+  background-color: blue;
+}
+
+.titulo{
+    padding: 5px;
+    width: 1500px;
+    height: 150px;
+    display: flex;
+    justify-content:space-around;
+    justify-self: center;
+    margin: 30px 0px 50px 0px;
+}
+#seleccionar-pokemon{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    gap: 10px; /* Separacion entre elementos, se parece a un margin */
+}
+.subtitulo{
+    color: white;
+    font-size: 28px; /* El tamaño de la letra */
+    text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+}
+.boton-de-ataque{
+    font-family: "Mochiy Pop P One", sans-serif;
+    font-size: 28px;
+    width: 300px;
+    height: 55px;
+    background-color:#FFCC00;
+    border: 1px solid black;
+    border-radius: 35px; 
+    margin: 10px;
+    color: blue;
+}
+.boton-de-ataque:disabled {
+    background-color: gray;
+    color: white;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.tarjetas{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.tarjeta-seleccion-pokemon{
+    width: 350px; /* Ancho */
+    height: 400px; /* Alto */
+    box-sizing: border-box; /* Es para que nuestra caja se autoajuste a en este caso 150*180 px con interior, pading, border y margin */
+    padding: 5px;/* Es básicamente la margen del interior, empieza desde el final del interior. */
+    border: 1px solid black; /* Es la linea que demarca cada elemento o que separa o permite identificar cada cuadro */
+    background-color: #3366CC; /* Es el fondo del elemento para cambiarle el color */
+    display: flex; /* Indicarle que este contenedor tendra hijos para acomodarlos como yo quiera (columnar u horizontal) */
+    flex-direction: column;/* Como ya seleccione que mi display es flex, ahora yo le puse que acomode mis hijos de forma columnar */
+    justify-content: center;/*Alinear mis hijos en el centro de izquierda a derecha, en este caso*/
+    align-items:center; /* Alinear mis hijos en el centro de arriba a abajo, en este caso*/
+    border-radius: 15px; /* Ponerle un borde redondo a un cuadro mio */
+}
+.tarjeta-seleccion-pokemon img{
+    width: 250px;
+}
+.tarjeta-seleccion-pokemon p{
+    color: #FFCC00; /* Cambio de color de la letra de todas las etiquetas <p> que esta dentro de la clase terjeta-seleccion-pokemon*/
+    margin: 0px 0px 30px 0px; /* Separación entre elementos es la distancia que va separar un cuadro de otro */
+    font-size: 28px;
+}
+
+input{
+    display: none;
+}
+#segunda-fase{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+#mensajes-de-seleccion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#ataques-pokemones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#botones-de-ataques{
+    display: flex;
+    flex-direction: row;
+}
+#reinicio-juego{
+    justify-content: center;
+}
+#boton-reiniciar-juego{
+    font-family: "Mochiy Pop P One", sans-serif;
+    font-size: 28px;
+    width: 300px;
+    height: 55px;
+    background-color:#FFCC00;
+    border: 1px solid black;
+    border-radius: 35px; 
+    margin: 40px 0px 0px 0px;
+    color: blue;
+}
+#tarjetas-combate{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 310px 410px 310px;
+    grid-template-rows: 450px;
+    border-radius: 10px;
+    background-color: #ece5c8;
+}
+.tarjetas-pokemon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+    background-color: gray; 
+    border-radius: 10px;
+
+}
+.tarjetas-individuales{
+    width: 290px;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./../imagenes/fondo2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 10px;
+    box-sizing:border-box;
+}
+.tarjetas-individuales p{
+    margin: 12px;
+}
+#resultados-batallas{
+    width: 390px;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    color: white;
+    background-color: blue;
+    margin: 10px;
+
+}
+#mensajes-combate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+@media (max-width: 360px){
+    body{
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    .tarjetas{
+        flex-direction: column;
+    }
+}
