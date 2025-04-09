@@ -178,7 +178,10 @@ input{
 
 }
 @media (max-width: 360px){
-    .tarjetas{
+    .tarjetas {
         flex-direction: column;
-    }
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+      }
 }
