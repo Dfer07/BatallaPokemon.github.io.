@@ -7,9 +7,9 @@ let vidas_logo=""
 
  //Objeto creado para que la ruta de las imagenes cambiara dependiendo de la seleccion del pokemon en el area de pelea(segunda fase)
 const imagenesPokemon={
-    Charmander:"./Asessts/charmanderataqueNew.png",
-    Squirtle:"./Asessts/squirtleataqueNew.png",
-    Pikachu:"./Asessts/pikachuataqueNew.png"
+    Charmander:"./Asesst/charmanderataqueNew.png",
+    Squirtle:"./Asesst/squirtleataqueNew.png",
+    Pikachu:"./Asesst/pikachuataqueNew.png"
 }
 function aleatorio(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
