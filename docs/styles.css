@@ -178,11 +178,6 @@ input{
 
 }
 @media (max-width: 360px){
-    body{
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-    }
     .tarjetas{
         flex-direction: column;
     }
