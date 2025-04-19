@@ -2,30 +2,25 @@
 
 
 body{
-  display: flex;  
   font-family: "Mochiy Pop P One", sans-serif;
   background-color: blue;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
 }
 
 .titulo{
-    min-width: 200px;
+    padding: 5px;
+    width: 1500px;
+    height: 90px;
     display: flex;
-    justify-content:center;
+    justify-content:space-around;
+    justify-self: center;
     align-items: center;
-    margin: 10px 0% 20px 0%;
-    gap: 20px;
+    color: white;
+    margin: 50px;
 }
-.titulo p{
-    color: #FFCC00;
-    text-shadow: 
-    -1px -1px 0 #000000,
-     1px -1px 0 #000000,
-    -1px  1px 0 #000000,
-     1px 1px 0 #000000;
-     font-size:auto;
+
+#mapa{
+    width:800px ;
+    border: 2px solid white;
 }
 
 #seleccionar-pokemon{
@@ -35,25 +30,45 @@ body{
     align-items: center;
     gap: 10px; /* Separacion entre elementos, se parece a un margin */
 }
-
+#ver-mapa{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .subtitulo{
     color: white;
+    font-size: 28px; /* El tamaño de la letra */
     text-shadow: 
     -1px -1px 0 black,  
      1px -1px 0 black,
     -1px  1px 0 black,
      1px  1px 0 black;
 }
-.boton-de-ataque{
+.boton-de-seleccionar{
     font-family: "Mochiy Pop P One", sans-serif;
-    font-size: 50%;
-    width: 10%;
-    height: 90px;
+    font-size: 28px;
+    width: 300px;
+    height: 55px;
     background-color:#FFCC00;
     border: 1px solid black;
     border-radius: 35px; 
     margin: 10px;
     color: blue;
+}
+.boton-de-ataque{
+    font-family: "Mochiy Pop P One", sans-serif;
+    font-size: 28px;
+    width: 300px;
+    height: 55px;
+    background-color:#FFCC00;
+    border: 1px solid black;
+    border-radius: 35px; 
+    margin: 10px;
+    color: blue;
+}
+.boton-de-ataque:active{
+    background-color: #1c2782;
 }
 .boton-de-ataque:disabled {
     background-color: gray;
@@ -62,18 +77,16 @@ body{
     cursor: not-allowed;
 }
 .tarjetas{
-    height: auto;
-    max-width: 50%;
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 10px;
 }
 
 .tarjeta-seleccion-pokemon{
-    width: 150px; /* Ancho */
-    height: 180px; 
+    width: 350px; /* Ancho */
+    height: 400px; /* Alto */
     box-sizing: border-box; /* Es para que nuestra caja se autoajuste a en este caso 150*180 px con interior, pading, border y margin */
-    padding: 2px;/* Es básicamente la margen del interior, empieza desde el final del interior. */
+    padding: 5px;/* Es básicamente la margen del interior, empieza desde el final del interior. */
     border: 1px solid black; /* Es la linea que demarca cada elemento o que separa o permite identificar cada cuadro */
     background-color: #3366CC; /* Es el fondo del elemento para cambiarle el color */
     display: flex; /* Indicarle que este contenedor tendra hijos para acomodarlos como yo quiera (columnar u horizontal) */
@@ -83,9 +96,7 @@ body{
     border-radius: 15px; /* Ponerle un borde redondo a un cuadro mio */
 }
 .tarjeta-seleccion-pokemon img{
-    display: block;
-    max-width: 100%;
-    height: auto;
+    width: 250px;
 }
 .tarjeta-seleccion-pokemon p{
     color: #FFCC00; /* Cambio de color de la letra de todas las etiquetas <p> que esta dentro de la clase terjeta-seleccion-pokemon*/
@@ -96,6 +107,10 @@ body{
 input{
     display: none;
 }
+input:checked +label{
+    background-color: #092f7b;
+}
+
 #segunda-fase{
     display: flex;
     flex-direction: column;
@@ -134,6 +149,9 @@ input{
     border-radius: 35px; 
     margin: 40px 0px 0px 0px;
     color: blue;
+}
+#boton-reiniciar-juego:active{
+    background-color: #1c2782;
 }
 #tarjetas-combate{
     display: grid;
@@ -194,27 +212,16 @@ input{
     align-items: center;
 
 }
-@media (max-width: 720px){
-    .tarjetas {
-        flex-direction: column;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-      }
-      #seleccionar-pokemon{
-        display: flex;
-        flex-direction: column;
-        justify-content:center;
-        align-items: center;
-        gap: 1px; /* Separacion entre elementos, se parece a un margin */
-    }
-    #segunda-fase{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-    }
+#mensajes-combate p{
+    margin: 8px;
+
 }
-@media (max-width: 400px){
+.victorias{
+    color: white;
+    font-size: 28px; /* El tamaño de la letra */
+    text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
 }
