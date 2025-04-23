@@ -1,7 +1,8 @@
 const sectionMapa=document.getElementById('ver-mapa')
 const mapa=document.getElementById('mapa')
 
-
+let jugadorId=null
+let enemigoId=null
 let inputcharmander
 let pokemon
 let inputpikachu
@@ -26,19 +27,21 @@ let fondoCanvas=new Image()
 fondoCanvas.src='./Asesst/fondoCanvas.png'
 let pokemonJugadorObjeto
 let pokemonEnemigoObjeto
+let pokemonesEnemigos=[]
 
 
 class Pokemon{  // Se creo una clase con nombre Pokemon (primera letra debe ser mayúscula)
-    constructor(nombre,imagen,vidas,imagenTarjeta,x=5,y=15){ //Se utiliza la palabra constructor y dentro de parentesis los parametros o atributos del objeto
+    constructor(nombre,imagen,vidas,imagenTarjeta,x,y,id=null){ //Se utiliza la palabra constructor y dentro de parentesis los parametros o atributos del objeto
+        this.id=id
         this.nombre=nombre;  // Se utiliza this.variable para asignarle al objeto el parametro del constructor
         this.imagen=imagen;
         this.vidas=vidas;
         this.imagenTarjeta=imagenTarjeta;
         this.ataques=[];
-        this.x=x;
-        this.y=y;
         this.ancho=24;
         this.alto=25;
+        this.x=x;
+        this.y=y;
         this.fotomapa=new Image();
         this.fotomapa.src=imagen;
         this.velocidadX=0;
@@ -56,59 +59,44 @@ class Pokemon{  // Se creo una clase con nombre Pokemon (primera letra debe ser 
         }
     }
 
-let charmander= new Pokemon('Charmander','./Asesst/charmander.png',3,'./Asesst/charmanderataqueNew.png');// se utiliza new + NombreDeLaClase y entre paréntesis los parametros
-let pikachu= new Pokemon('Pikachu','./Asesst/pikachu.png',3,'./Asesst/pikachuataqueNew.png');
-let squirtle= new Pokemon('Squirtle','./Asesst/squirtle.png',3,'./Asesst/squirtleataqueNew.png');
-let charmanderEnemigo= new Pokemon('Charmander','./Asesst/charmander.png',3,'./Asesst/charmanderataqueNew.png',135,30);// se utiliza new + NombreDeLaClase y entre paréntesis los parametros
-let pikachuEnemigo= new Pokemon('Pikachu','./Asesst/pikachu.png',3,'./Asesst/pikachuataqueNew.png',160,155);
-let squirtleEnemigo= new Pokemon('Squirtle','./Asesst/squirtle.png',3,'./Asesst/squirtleataqueNew.png',30,135);
+let charmander= new Pokemon('Charmander','./Asesst/charmander.png',3,'./Asesst/charmanderataqueNew.png',15,24);// se utiliza new + NombreDeLaClase y entre paréntesis los parametros
+let pikachu= new Pokemon('Pikachu','./Asesst/pikachu.png',3,'./Asesst/pikachuataqueNew.png',145,15);
+let squirtle= new Pokemon('Squirtle','./Asesst/squirtle.png',3,'./Asesst/squirtleataqueNew.png',145,145);
 
-charmander.ataques.push(
+
+const charmanderAtaques=[
     {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
     {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
     {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
     {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
     {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"}
-)
+]
+charmander.ataques.push(...charmanderAtaques)
 
-pikachu.ataques.push(
+const pickachuAtaques =[
     {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"},
     {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"},
     {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"},
     {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
     {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"}
-)
+]
+pikachu.ataques.push(...pickachuAtaques)
 
-squirtle.ataques.push(
+const ataquesSquirtle=[
     {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
     {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
     {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
     {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
     {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"}
-)
-charmanderEnemigo.ataques.push(
-    {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
-    {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
-    {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
-    {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
-    {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"}
-)
+]
+squirtle.ataques.push(...ataquesSquirtle)
 
-pikachuEnemigo.ataques.push(
-    {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"},
-    {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"},
-    {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"},
-    {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
-    {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"}
-)
 
-squirtleEnemigo.ataques.push(
-    {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
-    {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
-    {nombre:'🌊', id:'boton-agua',texto:"AGUA"},
-    {nombre:'🔥', id:'boton-fuego',texto:"FUEGO"},
-    {nombre:'⚡', id:'boton-trueno',texto:"TRUENO"}
-)
+// charmanderEnemigo.ataques.push(...charmanderAtaques)
+// pikachuEnemigo.ataques.push(...pickachuAtaques)
+// squirtleEnemigo.ataques.push(...ataquesSquirtle)
+
+
 pokemones.push(charmander,pikachu,squirtle)
 pokemonesarray=["Charmander","Pikachu","Squirtle"]
 
@@ -165,6 +153,21 @@ function iniciarJuego(){
     document.getElementById('boton-seleccionar-pokemon').addEventListener('click',selecionarPokemon);
 
     document.getElementById('boton-reiniciar-juego').addEventListener('click',reiniciarJuego)
+
+    unirseAlJuego()
+}
+
+function unirseAlJuego(){
+    fetch("http://localhost:8080/unirse")
+        .then(function (res){
+            if(res.ok){
+                res.text()
+                    .then(function (respuesta){
+                        console.log(respuesta)
+                        jugadorId=respuesta
+                    })
+            }
+        })
 }
 
 function selecionarPokemon(){
@@ -177,6 +180,8 @@ function selecionarPokemon(){
     }else{
         return alert("Selecciona una mascota");
     }
+    enviarPokemon(pokemon)
+
     pokemonesindex=pokemonesarray.indexOf(pokemon)
     pokemonJugadorObjeto=pokemones[pokemonesindex]
     document.getElementById('pokemon-imagen-ataque').src=pokemones[pokemonesindex].imagenTarjeta
@@ -185,7 +190,21 @@ function selecionarPokemon(){
     mostrarMensaje('ver-mapa')
     mostrarMapa()
     extraerAtaques(pokemon)
+    console.log(pokemon)
 }
+
+function enviarPokemon(pokemon){
+    fetch(`http://localhost:8080/pokemon/${jugadorId}`,{
+        method: "post",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+            pokemonJugador:pokemon
+        })
+    })
+}
+
 function mostrarMapa(){
     mapa.width=200
     mapa.height=200
@@ -205,15 +224,53 @@ function pokemonEnCanvas(){
         mapa.width,
         mapa.height,
     )
+    
     pokemonJugadorObjeto.mostrarPokemon();
-    charmanderEnemigo.mostrarPokemon();
-    pikachuEnemigo.mostrarPokemon();
-    squirtleEnemigo.mostrarPokemon();
-    if(pokemonJugadorObjeto.velocidadX!==0 || pokemonJugadorObjeto.velocidadY!==0){
-        revisarCombate(charmanderEnemigo);
-        revisarCombate(pikachuEnemigo);
-        revisarCombate(squirtleEnemigo);
-    }
+    enviarposicion(pokemones[pokemonesindex].x,pokemones[pokemonesindex].y)
+
+    pokemonesEnemigos.forEach(function (pokemon){
+        pokemon.mostrarPokemon()
+        revisarCombate(pokemon)
+    })
+}
+
+function enviarposicion(x,y){
+    fetch(`http://localhost:8080/pokemon/${jugadorId}/posicion`, {
+        method: "post",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x, // Esto es lo mismo que decir x=x
+            y // Esto es lo mismo que decir y=y
+        })
+    })
+    .then(function (res){
+        if(res.ok){
+            res.json()
+                .then(function({enemigos}){
+                    console.log(enemigos)
+                    pokemonesEnemigos=enemigos.map(function (enemigo){
+                        let pokemonEnemigoServer=null
+                        if(enemigo.pokemon!==undefined){
+                            const pokemonNombre=enemigo.pokemon.nombre || ""
+                            if(pokemonNombre==="Charmander"){
+                                pokemonEnemigoServer= new Pokemon('Charmander','./Asesst/charmander.png',3,'./Asesst/charmanderataqueNew.png',15,24,enemigo.id);// se utiliza new + NombreDeLaClase y entre paréntesis los parametros
+                            }else if(pokemonNombre==="Pikachu"){
+                                pokemonEnemigoServer= new Pokemon('Pikachu','./Asesst/pikachu.png',3,'./Asesst/pikachuataqueNew.png',135,15,enemigo.id);
+                            }else if(pokemonNombre==="Squirtle"){
+                                pokemonEnemigoServer= new Pokemon('Squirtle','./Asesst/squirtle.png',3,'./Asesst/squirtleataqueNew.png',145,145,enemigo.id);
+                            }
+
+                            pokemonEnemigoServer.x=enemigo.x
+                            pokemonEnemigoServer.y=enemigo.y
+                            return pokemonEnemigoServer
+                        }
+                        
+                    })
+            })
+        }
+    })
 }
 
 function teclaPresionada(eventoOcurrido){
@@ -258,6 +315,7 @@ function revisarCombate(enemigo){
     }
     detenerMovimiento()
     clearInterval(intervalo)
+    enemigoId=enemigo.id
     sectionMapa.style.display="none";
     mostrarMensaje('segunda-fase')
     pokemonEnemigoObjeto=enemigo
@@ -301,38 +359,69 @@ function secuenciaDeAtaque(){
                 console.log(ataqueJugador)
                 boton.disabled=true
             }
-            ataqueAleatorioEnemigo()
+            if (ataqueJugador.length===5){
+                enviarAtaques()
+            }
+           
         })
     })
 }
 
-function ataqueAleatorioEnemigo(){
-    while(ataquesEnemigo.length>0){
-        numeroAleatorio=aleatorio(0,ataquesEnemigo.length-1)
-        if(numeroAleatorio==0 || numeroAleatorio==1 || numeroAleatorio==2){
-            AtaquesPokemonEnemigo.push(ataquesEnemigo[numeroAleatorio].texto)
-            console.log(AtaquesPokemonEnemigo)
-            ataquesEnemigo.splice(numeroAleatorio,1)
-            break
-        }else if(numeroAleatorio==3){
-            AtaquesPokemonEnemigo.push(ataquesEnemigo[numeroAleatorio].texto)
-            console.log(AtaquesPokemonEnemigo)
-            ataquesEnemigo.splice(numeroAleatorio,1)
-            break
-        }else{
-            AtaquesPokemonEnemigo.push(ataquesEnemigo[numeroAleatorio].texto)
-            console.log(AtaquesPokemonEnemigo)
-            ataquesEnemigo.splice(numeroAleatorio,1)
-            break
-        }
-    }
-    console.log(ataquesEnemigo.length)
-    if(ataqueJugador.length==5){
-        combate()
-    }
-}
 
+function enviarAtaques(){
+    fetch(`http://localhost:8080/pokemon/${jugadorId}/ataques`,{
+        method: "post",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            ataques:ataqueJugador
+        })
+    })
+    intervalo=setInterval(obtenerAtaques,50)
+}
+// function ataqueAleatorioEnemigo(){
+//     while(ataquesEnemigo.length>0){
+//         numeroAleatorio=aleatorio(0,ataquesEnemigo.length-1)
+//         if(numeroAleatorio==0 || numeroAleatorio==1 || numeroAleatorio==2){
+//             AtaquesPokemonEnemigo.push(ataquesEnemigo[numeroAleatorio].texto)
+//             console.log(AtaquesPokemonEnemigo)
+//             ataquesEnemigo.splice(numeroAleatorio,1)
+//             break
+//         }else if(numeroAleatorio==3){
+//             AtaquesPokemonEnemigo.push(ataquesEnemigo[numeroAleatorio].texto)
+//             console.log(AtaquesPokemonEnemigo)
+//             ataquesEnemigo.splice(numeroAleatorio,1)
+//             break
+//         }else{
+//             AtaquesPokemonEnemigo.push(ataquesEnemigo[numeroAleatorio].texto)
+//             console.log(AtaquesPokemonEnemigo)
+//             ataquesEnemigo.splice(numeroAleatorio,1)
+//             break
+//         }
+//     }
+//     console.log(ataquesEnemigo.length)
+//     if(ataqueJugador.length==5){
+//         combate()
+//     }
+// }
+function obtenerAtaques(){
+    fetch(`http://localhost:8080/pokemon/${enemigoId}/ataques`)
+            .then(function (res){
+                if(res.ok){
+                    res.json()
+                        .then(function({ataques}){
+                            if(ataques.length===5){
+                                AtaquesPokemonEnemigo=ataques
+                                combate()
+                            }
+                        })
+                }
+            })
+}
 function combate(){
+    clearInterval(intervalo)
+
     for(let i=0;i<ataqueJugador.length;i++){
         if(ataqueJugador[i]==AtaquesPokemonEnemigo[i]){
             document.getElementById('mensajes-combate').innerHTML+=`<p><span id="resultado-lucha">Round ${i+1} : ¡Empataron!</span></p>`
@@ -403,5 +492,4 @@ function reiniciarJuego(){
     location.reload()
 }
 
-iniciarJuego()
-
+iniciarJuego();
