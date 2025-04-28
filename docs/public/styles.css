@@ -24,11 +24,12 @@ body{
 }
 
 #seleccionar-pokemon{
+    padding: 14px;
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    gap: 10px; /* Separacion entre elementos, se parece a un margin */
+    gap: 14px; /* Separacion entre elementos, se parece a un margin */
 }
 #ver-mapa{
     display: flex;

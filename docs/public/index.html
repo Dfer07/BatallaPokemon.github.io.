@@ -28,11 +28,11 @@
     <section id="ver-mapa" style="display: none;">
         <h1 class="titulo">¡Bienvenido al mapa de Pokémon!</h1>
         <canvas id="mapa"></canvas>
-        <button onmouseup="detenerMovimiento()" onmousedown="moverMasY()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Arriba</button>
+        <button ontouchstart="moverMasY()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverMasY()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Arriba</button>
         <div id="flechas" style="display: flex;">
-            <button onmouseup="detenerMovimiento()" onmousedown="moverMenosX()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Izquierda</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverMenosY()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Abajo</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverMasX()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Derecha</button>
+            <button ontouchstart="moverMenosX()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverMenosX()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Izquierda</button>
+            <button ontouchstart="moverMenosY()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverMenosY()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Abajo</button>
+            <button ontouchstart="moverMasX()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverMasX()" onmouseout="detenerMovimiento()" class="boton-de-seleccionar">Derecha</button>
         </div>
     </section>
 

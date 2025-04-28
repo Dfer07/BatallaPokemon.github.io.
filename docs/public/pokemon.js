@@ -1,6 +1,7 @@
 const sectionMapa=document.getElementById('ver-mapa')
 const mapa=document.getElementById('mapa')
 
+let inicioPosicionesValidadas = false;
 let jugadorId=null
 let enemigoId=null
 let inputcharmander
@@ -158,7 +159,7 @@ function iniciarJuego(){
 }
 
 function unirseAlJuego(){
-    fetch("http://localhost:8080/unirse")
+    fetch("http://192.168.1.86:8080/unirse")
         .then(function (res){
             if(res.ok){
                 res.text()
@@ -194,7 +195,7 @@ function selecionarPokemon(){
 }
 
 function enviarPokemon(pokemon){
-    fetch(`http://localhost:8080/pokemon/${jugadorId}`,{
+    fetch(`http://192.168.1.86:8080/pokemon/${jugadorId}`,{
         method: "post",
         headers:{
             "Content-Type":"application/json"
@@ -212,66 +213,63 @@ function mostrarMapa(){
     window.addEventListener('keydown',teclaPresionada)
     window.addEventListener('keyup',detenerMovimiento)
 }
-function pokemonEnCanvas(){
-
-    pokemones[pokemonesindex].x+=pokemones[pokemonesindex].velocidadX;
-    pokemones[pokemonesindex].y+=pokemones[pokemonesindex].velocidadY;
-    lienzo.clearRect(0,0,mapa.width,mapa.height);
-    lienzo.drawImage(
-        fondoCanvas,
-        0,
-        0,
-        mapa.width,
-        mapa.height,
-    )
-    
+function pokemonEnCanvas() {
+    // Mueve y dibuja tu Pokémon
+    pokemones[pokemonesindex].x += pokemones[pokemonesindex].velocidadX;
+    pokemones[pokemonesindex].y += pokemones[pokemonesindex].velocidadY;
+    lienzo.clearRect(0, 0, mapa.width, mapa.height);
+    lienzo.drawImage(fondoCanvas, 0, 0, mapa.width, mapa.height);
     pokemonJugadorObjeto.mostrarPokemon();
-    enviarposicion(pokemones[pokemonesindex].x,pokemones[pokemonesindex].y)
+  
+    // Envía tu posición y actualiza enemigos
+    enviarposicion(pokemones[pokemonesindex].x, pokemones[pokemonesindex].y);
+  
+    // Dibuja y chequea combate solo si ya validamos posiciones
+    pokemonesEnemigos.forEach(function (pokemon) {
+      pokemon.mostrarPokemon();
+      revisarCombate(pokemon);
+    });
+  }
 
-    pokemonesEnemigos.forEach(function (pokemon){
-        pokemon.mostrarPokemon()
-        revisarCombate(pokemon)
+function enviarposicion(x, y) {
+    fetch(`http://192.168.1.86:8080/pokemon/${jugadorId}/posicion`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ x, y })
     })
-}
-
-function enviarposicion(x,y){
-    fetch(`http://localhost:8080/pokemon/${jugadorId}/posicion`, {
-        method: "post",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            x, // Esto es lo mismo que decir x=x
-            y // Esto es lo mismo que decir y=y
-        })
-    })
-    .then(function (res){
-        if(res.ok){
-            res.json()
-                .then(function({enemigos}){
-                    console.log(enemigos)
-                    pokemonesEnemigos=enemigos.map(function (enemigo){
-                        let pokemonEnemigoServer=null
-                        if(enemigo.pokemon!==undefined){
-                            const pokemonNombre=enemigo.pokemon.nombre || ""
-                            if(pokemonNombre==="Charmander"){
-                                pokemonEnemigoServer= new Pokemon('Charmander','./Asesst/charmander.png',3,'./Asesst/charmanderataqueNew.png',15,24,enemigo.id);// se utiliza new + NombreDeLaClase y entre paréntesis los parametros
-                            }else if(pokemonNombre==="Pikachu"){
-                                pokemonEnemigoServer= new Pokemon('Pikachu','./Asesst/pikachu.png',3,'./Asesst/pikachuataqueNew.png',135,15,enemigo.id);
-                            }else if(pokemonNombre==="Squirtle"){
-                                pokemonEnemigoServer= new Pokemon('Squirtle','./Asesst/squirtle.png',3,'./Asesst/squirtleataqueNew.png',145,145,enemigo.id);
-                            }
-
-                            pokemonEnemigoServer.x=enemigo.x
-                            pokemonEnemigoServer.y=enemigo.y
-                            return pokemonEnemigoServer
-                        }
-                        
-                    })
-            })
+      .then(res => res.ok && res.json())
+      .then(({ enemigos }) => {
+        // Comprueba si tanto tú como el enemigo ya tenéis coordenadas distintas de (0,0)
+        if (!inicioPosicionesValidadas) {
+          const yoValido = x !== 0 || y !== 0;
+          const todosValidos = enemigos.every(e => (e.x !== 0 || e.y !== 0));
+          if (yoValido && todosValidos) {
+            inicioPosicionesValidadas = true;
+          }
         }
-    })
-}
+  
+        // Instancia a los enemigos como antes
+        pokemonesEnemigos = enemigos
+          .map(function (enemigo) {
+            if (!enemigo.pokemon) return null;
+            const nombre = enemigo.pokemon.nombre;
+            let p = null;
+            if (nombre === "Charmander") {
+              p = new Pokemon("Charmander", "./Asesst/charmander.png", 3, "./Asesst/charmanderataqueNew.png", 15, 24, enemigo.id);
+            } else if (nombre === "Pikachu") {
+              p = new Pokemon("Pikachu", "./Asesst/pikachu.png", 3, "./Asesst/pikachuataqueNew.png", 135, 15, enemigo.id);
+            } else if (nombre === "Squirtle") {
+              p = new Pokemon("Squirtle", "./Asesst/squirtle.png", 3, "./Asesst/squirtleataqueNew.png", 145, 145, enemigo.id);
+            }
+            if (p) {
+              p.x = enemigo.x;
+              p.y = enemigo.y;
+            }
+            return p;
+          })
+          .filter(Boolean);
+      });
+  }
 
 function teclaPresionada(eventoOcurrido){
     switch(eventoOcurrido.key){
@@ -369,7 +367,7 @@ function secuenciaDeAtaque(){
 
 
 function enviarAtaques(){
-    fetch(`http://localhost:8080/pokemon/${jugadorId}/ataques`,{
+    fetch(`http://192.168.1.86:8080/pokemon/${jugadorId}/ataques`,{
         method: "post",
         headers:{
             "Content-Type":"application/json"
@@ -406,7 +404,7 @@ function enviarAtaques(){
 //     }
 // }
 function obtenerAtaques(){
-    fetch(`http://localhost:8080/pokemon/${enemigoId}/ataques`)
+    fetch(`http://192.168.1.86:8080/pokemon/${enemigoId}/ataques`)
             .then(function (res){
                 if(res.ok){
                     res.json()
